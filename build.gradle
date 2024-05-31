@@ -10,12 +10,14 @@ base {
 version = "$project.version+${libs.versions.minecraft.get()}"
 group = project.maven_group
 
+
 repositories {
 	// Add repositories to retrieve artifacts from in here.
 	// You should only use this when depending on other mods because
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
+	maven { url 'https://maven.wispforest.io' }
 }
 
 loom {
@@ -44,6 +46,14 @@ dependencies {
 		officialMojangMappings()
 	}
 	*/
+	modImplementation "io.wispforest:owo-lib:${project.owo_version}"
+	// only if you plan to use owo-config
+	annotationProcessor "io.wispforest:owo-lib:${project.owo_version}"
+
+	// include this if you don't want force your users to install owo
+	// sentinel will warn them and give the option to download it automatically
+	include "io.wispforest:owo-sentinel:${project.owo_version}"
+
 	modImplementation libs.quilt.loader
 
 	// QSL is not a complete API; You will need Quilted Fabric API to fill in the gaps.
